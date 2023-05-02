@@ -92,9 +92,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4506916917155009805}
-  - component: {fileID: 6066831652508727400}
+  - component: {fileID: 430192900615485905}
+  - component: {fileID: 7031268049152890617}
   m_Layer: 0
-  m_Name: GrassSell
+  m_Name: GrassCell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -116,7 +117,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &6066831652508727400
+--- !u!114 &430192900615485905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4506916917155009804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32e89ddb68e7dea4885fd926181d42b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cellType: 1
+  visual: {fileID: 4506916917969866333}
+  substituteCell: {fileID: 0}
+  scaleTime: 0.25
+--- !u!65 &7031268049152890617
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -124,11 +141,11 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4506916917155009804}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.1, z: 1}
-  m_Center: {x: 0, y: -0.05, z: 0}
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4506916917969866332
 GameObject:
   m_ObjectHideFlags: 0
