@@ -1,8 +1,5 @@
 using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
 
 namespace BuilderGame.Gameplay.InteractiveCells
 {
@@ -14,7 +11,12 @@ namespace BuilderGame.Gameplay.InteractiveCells
 
         [Header("Effects")]
         [SerializeField]
+        private ParticleSystem _interactParticle;
+
+        [SerializeField]
         private float scaleTime = 0.25f;
+        [SerializeField]
+        private float existTime = 1f;
 
         private void Start()
         {
@@ -24,11 +26,14 @@ namespace BuilderGame.Gameplay.InteractiveCells
         protected override void Interact()
         {
             base.Interact();
+            IsInteractable = false;
 
-            visual.DOScale(Vector3.zero, scaleTime)
+            _interactParticle.Play();
+
+            visual.DOScale(Vector3.up, scaleTime)
                 .OnComplete(() => 
                 {
-                    gameObject.SetActive(false);
+                    DOVirtual.DelayedCall(existTime, () => gameObject.SetActive(false));
                 });
         }
     }
