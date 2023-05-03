@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5170908676204180651}
   - component: {fileID: 1662741090542904606}
   m_Layer: 0
-  m_Name: Particle System
+  m_Name: GrassParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5020,7 +5020,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cellType: 1
   visual: {fileID: 4506916917969866333}
-  _interactParticle: {fileID: 5170908676204180651}
+  interactParticle: {fileID: 5170908676204180651}
   scaleTime: 0.5
   existTime: 1
 --- !u!65 &7031268049152890617

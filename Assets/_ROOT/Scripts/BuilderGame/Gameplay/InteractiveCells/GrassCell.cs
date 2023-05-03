@@ -11,24 +11,19 @@ namespace BuilderGame.Gameplay.InteractiveCells
 
         [Header("Effects")]
         [SerializeField]
-        private ParticleSystem _interactParticle;
+        private ParticleSystem interactParticle;
 
         [SerializeField]
         private float scaleTime = 0.25f;
         [SerializeField]
         private float existTime = 1f;
 
-        private void Start()
-        {
-            IsInteractable = true;
-        }
-
         protected override void Interact()
         {
             base.Interact();
             IsInteractable = false;
 
-            _interactParticle.Play();
+            interactParticle.Play();
 
             visual.DOScale(Vector3.up, scaleTime)
                 .OnComplete(() => 

@@ -13,6 +13,7 @@ namespace BuilderGame.Gameplay.InteractiveCells
         public event Action<Cell> OnInteract;
 
         public bool IsInteractable { get; set; }
+        public CellType CellType => cellType;
 
         protected virtual void OnTriggerEnter(Collider other)
         {

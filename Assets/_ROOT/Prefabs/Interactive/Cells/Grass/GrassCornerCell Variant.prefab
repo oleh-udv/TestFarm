@@ -105,6 +105,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 430192900615485905, guid: f60a79607cf7fda479bebc399f3a1ec6, type: 3}
+      propertyPath: interactParticle
+      value: 
+      objectReference: {fileID: 3568183438223371253}
     - target: {fileID: 4506916916591311329, guid: f60a79607cf7fda479bebc399f3a1ec6, type: 3}
       propertyPath: m_Name
       value: GrassCornerSell
@@ -115,7 +119,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4506916917155009804, guid: f60a79607cf7fda479bebc399f3a1ec6, type: 3}
       propertyPath: m_Name
-      value: GrassCornerCell (1)
+      value: GrassCornerCell Variant
       objectReference: {fileID: 0}
     - target: {fileID: 4506916917155009804, guid: f60a79607cf7fda479bebc399f3a1ec6, type: 3}
       propertyPath: m_IsActive
@@ -171,6 +175,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f60a79607cf7fda479bebc399f3a1ec6, type: 3}
+--- !u!198 &3568183438223371253 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5170908676204180651, guid: f60a79607cf7fda479bebc399f3a1ec6, type: 3}
+  m_PrefabInstance: {fileID: 8522633372581683038}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5246043664929788163 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4506916917969866333, guid: f60a79607cf7fda479bebc399f3a1ec6, type: 3}
