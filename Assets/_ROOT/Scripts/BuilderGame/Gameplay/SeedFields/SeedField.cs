@@ -83,9 +83,12 @@ namespace BuilderGame.Gameplay.SeedFields
 
         private void CompleteField() 
         {
-            workerField.SetActive(true);
-            workerField.transform.localScale = Vector3.zero;
-            workerField.transform.DOScale(Vector3.one, scaleTime);
+            if (workerField)
+            {
+                workerField.SetActive(true);
+                workerField.transform.localScale = Vector3.zero;
+                workerField.transform.DOScale(Vector3.one, scaleTime);
+            }
         }
     }
 }
