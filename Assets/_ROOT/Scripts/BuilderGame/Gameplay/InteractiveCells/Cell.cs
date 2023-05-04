@@ -11,8 +11,25 @@ namespace BuilderGame.Gameplay.InteractiveCells
         protected CellType cellType = CellType.None;
 
         public event Action<Cell> OnInteract;
+        public event Action<Cell> OnBecameInteract;
 
-        public bool IsInteractable { get; set; }
+        private bool isInteractable;
+
+        public bool IsInteractable 
+        {
+            get 
+            { 
+                return isInteractable; 
+            } 
+            set 
+            { 
+                if (value)
+                    OnBecameInteract?.Invoke(this);
+
+                isInteractable = value;
+            } 
+        }
+
         public CellType CellType => cellType;
 
         protected virtual void OnTriggerEnter(Collider other)

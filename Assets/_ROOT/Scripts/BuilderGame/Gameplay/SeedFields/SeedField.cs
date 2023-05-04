@@ -1,5 +1,6 @@
 using BuilderGame.Gameplay.InteractiveCells;
 using BuilderGame.Gameplay.SeedFields.Structs;
+using DG.Tweening;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,14 +16,23 @@ namespace BuilderGame.Gameplay.SeedFields
 
         [Space]
         [SerializeField]
+        private GameObject workerField;
+        [SerializeField]
+        private float scaleTime = 0.2f;
+
+        [Space]
+        [SerializeField]
         private List<CellLayers> cellLayers;
 
         private int currentLayer = 0;
+        private int interactCount = 0;
 
         private void Start()
         {
             if (isActiveByStart)
                 ActivateLayer(0);
+
+            workerField.SetActive(false);
         }
 
         public void ActivateLayer(int layer) 
@@ -35,6 +45,13 @@ namespace BuilderGame.Gameplay.SeedFields
                     cell.OnInteract += InteractCell;
                 }
             }
+        }
+
+        public List<Cell> GetCurrentCells() 
+        {
+            return currentLayer == cellLayers.Count ? 
+                cellLayers[cellLayers.Count - 1].cells : 
+                cellLayers[currentLayer].cells;
         }
 
         //Only in edit mode
@@ -50,11 +67,13 @@ namespace BuilderGame.Gameplay.SeedFields
         private void InteractCell(Cell cell) 
         {
             cell.OnInteract -= InteractCell;
-            cellLayers[currentLayer].cells.Remove(cell);
+            interactCount++;
 
-            if (cellLayers[currentLayer].cells.Count == 0) 
+            if (cellLayers[currentLayer].cells.Count == interactCount) 
             {
                 currentLayer++;
+                interactCount = 0;
+
                 if (cellLayers.Count > currentLayer)
                     ActivateLayer(currentLayer);
                 else
@@ -64,7 +83,9 @@ namespace BuilderGame.Gameplay.SeedFields
 
         private void CompleteField() 
         {
-        
+            workerField.SetActive(true);
+            workerField.transform.localScale = Vector3.zero;
+            workerField.transform.DOScale(Vector3.one, scaleTime);
         }
     }
 }
