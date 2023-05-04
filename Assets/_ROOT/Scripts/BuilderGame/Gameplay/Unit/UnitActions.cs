@@ -1,14 +1,12 @@
 using BuilderGame.Gameplay.InteractiveCells;
 using BuilderGame.Gameplay.InteractiveCells.Enums;
 using BuilderGame.Gameplay.Unit.Animation;
-using BuilderGame.Gameplay.Unit.Interfaces;
 using DG.Tweening;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 namespace BuilderGame.Gameplay.Unit
 {
-    public class UnitActions : MonoBehaviour, IInteractCells
+    public class UnitActions : MonoBehaviour
     {
         [SerializeField] 
         private UnitActionsAnimation actionsAnimation;
@@ -18,6 +16,8 @@ namespace BuilderGame.Gameplay.Unit
         private Transform shovel;
         [SerializeField]
         private Transform seeds;
+        [SerializeField]
+        private Transform visual;
 
         [Header("Settings")]
         [SerializeField]
@@ -25,9 +25,16 @@ namespace BuilderGame.Gameplay.Unit
 
         [Header("Effects")]
         [SerializeField]
-        private float scaleTime;
+        private float scaleItemTime = 0.5f;
+
+        [Space]
+        [SerializeField]
+        private float punchTime = 0.15f;
+        [SerializeField]
+        private float punchForce = 0.1f;
 
         private Transform activeItem;
+        private Tween punchTween;
         private Tween activityTween;
 
         public void InteractCell(Cell cell)
@@ -42,6 +49,12 @@ namespace BuilderGame.Gameplay.Unit
                     Planting();
                     break;
             }
+        }
+
+        public void CollectItem() 
+        {
+            punchTween.Kill(true);
+            punchTween = visual.DOPunchScale(Vector3.one * punchForce, punchTime);
         }
 
         private void Dig() 
@@ -73,7 +86,7 @@ namespace BuilderGame.Gameplay.Unit
             item.gameObject.SetActive(true);
             var startScale = item.localScale;
             item.localScale = Vector3.zero;
-            item.DOScale(startScale, scaleTime);
+            item.DOScale(startScale, scaleItemTime);
         }
 
         private void StartActivityTimer() 

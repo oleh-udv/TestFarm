@@ -1,6 +1,7 @@
 using BuilderGame.Infrastructure.Services.Ads;
 using BuilderGame.Infrastructure.Services.Ads.Fake;
 using BuilderGame.Infrastructure.Services.Input;
+using BuilderGame.Pools;
 using UnityEngine;
 using Zenject;
 
@@ -16,6 +17,10 @@ namespace BuilderGame.Infrastructure
 
             Container.Bind<FakeAdsSettings>().FromResources(nameof(FakeAdsSettings)).AsSingle();
             Container.Bind<IAdvertiser>().To<FakeAdvertiser>().AsSingle();
+
+            //Pools
+            var plantPoolManager = Container.InstantiatePrefabResourceForComponent<PlantPoolManager>("PlantPoolManager");
+            Container.Bind<PlantPoolManager>().FromInstance(plantPoolManager).AsSingle();
         }
 
         public void Initialize()

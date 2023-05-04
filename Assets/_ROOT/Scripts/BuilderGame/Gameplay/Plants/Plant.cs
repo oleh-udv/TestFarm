@@ -1,8 +1,9 @@
+using BuilderGame.Gameplay.Unit;
+using BuilderGame.Pools;
 using DG.Tweening;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 namespace BuilderGame.Gameplay.Plants
 {
@@ -36,10 +37,17 @@ namespace BuilderGame.Gameplay.Plants
         [SerializeField]
         private float grownPunchForce = 0.075f;
 
+        private PlantPoolManager plantPoolManager;
         private Tween growingTween;
         private float growingTime;
 
         public event Action OnGrowUp;
+
+        [Inject]
+        public void Construct(PlantPoolManager plantPoolManager)
+        {
+            this.plantPoolManager = plantPoolManager;
+        }
 
         private void OnDisable()
         {
@@ -57,9 +65,14 @@ namespace BuilderGame.Gameplay.Plants
             Disappear(grownPlant, grownDisappearingTime);
         }
 
-        public void Collect()
+        public void Collect(UnitActions unit)
         {
             Planting();
+
+            var collectItim = plantPoolManager.GetPoolElement();
+            collectItim.transform.position = transform.position;
+            collectItim.MoveToPoint(unit.transform, () => unit.CollectItem());
+
             collectParticle.Play();
         }
 

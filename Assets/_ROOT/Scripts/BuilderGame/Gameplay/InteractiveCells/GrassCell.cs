@@ -1,3 +1,4 @@
+using BuilderGame.Gameplay.Unit;
 using DG.Tweening;
 using UnityEngine;
 
@@ -18,9 +19,9 @@ namespace BuilderGame.Gameplay.InteractiveCells
         [SerializeField]
         private float existTime = 1f;
 
-        protected override void Interact()
+        protected override void Interact(UnitActions unit)
         {
-            base.Interact();
+            base.Interact(unit);
             IsInteractable = false;
 
             interactParticle.Play();

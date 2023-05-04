@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace BuilderGame
+namespace BuilderGame.Pools
 {
     public class Pool<T> where T : MonoBehaviour
     {
@@ -14,7 +14,6 @@ namespace BuilderGame
         {
             Prefab = prefab;
             Container = container;
-
             CreatePool(count);
         }
         
@@ -44,7 +43,6 @@ namespace BuilderGame
         private void CreatePool(int count)
         {
             pool = new List<T>(count);
-
             for (int i = 0; i < count; i++)
                 CreateObject();
         }

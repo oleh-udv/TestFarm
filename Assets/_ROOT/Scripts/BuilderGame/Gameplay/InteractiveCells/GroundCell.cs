@@ -1,8 +1,8 @@
 using BuilderGame.Gameplay.Plants;
-using DG.Tweening;
+using BuilderGame.Gameplay.Unit;
 using Structs;
-using System;
 using UnityEngine;
+using Zenject;
 
 namespace BuilderGame.Gameplay.InteractiveCells
 {
@@ -15,28 +15,35 @@ namespace BuilderGame.Gameplay.InteractiveCells
         [SerializeField]
         private Plant plantPrefab;
 
+        private DiContainer diContainer;
         private Plant currentPlant;
         private bool isSown;
+
+        [Inject]
+        public void Construct(DiContainer diContainer)
+        {
+            this.diContainer = diContainer;
+        }
 
         private void OnDisable()
         {
             currentPlant.OnGrowUp -= ActivateCell;
         }
 
-        protected override void Interact()
+        protected override void Interact(UnitActions unit)
         {
-            base.Interact();
+            base.Interact(unit);
             IsInteractable = false;
 
             if (isSown == false)
                 Sown();
             else
-                Collect();
+                Collect(unit);
         }
 
         private void Sown() 
         {
-            currentPlant = Instantiate(plantPrefab, transform);
+            currentPlant = diContainer.InstantiatePrefab(plantPrefab, transform).GetComponent<Plant>();
             ExpectActivity();
             currentPlant.Planting();
 
@@ -46,10 +53,10 @@ namespace BuilderGame.Gameplay.InteractiveCells
             isSown = true;
         }
 
-        private void Collect() 
+        private void Collect(UnitActions unit) 
         {
             ExpectActivity();
-            currentPlant.Collect();
+            currentPlant.Collect(unit);
         }
 
         private void ExpectActivity()

@@ -1,5 +1,6 @@
 using BuilderGame.Infrastructure.Services.Ads;
 using BuilderGame.Infrastructure.Services.Ads.Fake;
+using BuilderGame.Infrastructure.Services.Input;
 using DG.Tweening;
 using ModestTree;
 using System.Collections;
@@ -20,10 +21,15 @@ namespace BuilderGame.Gameplay.Unit.Worker
         [SerializeField]
         private float scaleTime;
 
-        [Inject]
         private IAdvertiser advertiser;
 
         private bool isActive = true;
+
+        [Inject]
+        public void Construct(IAdvertiser advertiser)
+        {
+            this.advertiser = advertiser;
+        }
 
         private void OnTriggerEnter(Collider other)
         {

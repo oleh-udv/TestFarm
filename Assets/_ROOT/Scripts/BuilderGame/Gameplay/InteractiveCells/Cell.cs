@@ -1,5 +1,5 @@
 using BuilderGame.Gameplay.InteractiveCells.Enums;
-using BuilderGame.Gameplay.Unit.Interfaces;
+using BuilderGame.Gameplay.Unit;
 using System;
 using UnityEngine;
 
@@ -37,15 +37,15 @@ namespace BuilderGame.Gameplay.InteractiveCells
             if (!IsInteractable)
                 return;
 
-            var unit = other.GetComponent<IInteractCells>();
+            var unit = other.GetComponent<UnitActions>();
             if (unit != null) 
             {
                 unit.InteractCell(this);
-                Interact();
+                Interact(unit);
             }
         }
 
-        protected virtual void Interact() 
+        protected virtual void Interact(UnitActions unit) 
         {
             OnInteract?.Invoke(this);
         }
