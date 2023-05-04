@@ -1,14 +1,17 @@
 using BuilderGame.Gameplay.Unit;
-using BuilderGame.Pools;
+using BuilderGame.Gameplay.Pools;
 using DG.Tweening;
 using System;
 using UnityEngine;
 using Zenject;
+using BuilderGame.Gameplay.Collectable;
 
 namespace BuilderGame.Gameplay.Plants
 {
     public class Plant : MonoBehaviour
     {
+        [SerializeField]
+        private CollectableItemsEnum plantType;
         [Space]
         [SerializeField]
         private Transform sprout;
@@ -69,7 +72,7 @@ namespace BuilderGame.Gameplay.Plants
         {
             Planting();
 
-            var collectItim = plantPoolManager.GetPoolElement();
+            var collectItim = plantPoolManager.GetPoolElement(plantType);
             collectItim.transform.position = transform.position;
             collectItim.MoveToPoint(unit.transform, () => unit.CollectItem());
 

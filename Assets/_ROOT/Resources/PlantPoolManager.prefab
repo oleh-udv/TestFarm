@@ -45,4 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tomatoPrefab: {fileID: 5253412336959649270, guid: 78fc0784d98307a49ba91be3f093a56b, type: 3}
-  startCount: 10
+  tomatoCount: 10
+  cornPrefab: {fileID: 8594714044119345644, guid: 6f6a11569c0a5714fbce543b08018472, type: 3}
+  cornCount: 10

@@ -2,7 +2,7 @@ using DG.Tweening;
 using System;
 using UnityEngine;
 
-namespace BuilderGame.Collectable
+namespace BuilderGame.Gameplay.Collectable
 {
     public class CollectableItem : MonoBehaviour
     {

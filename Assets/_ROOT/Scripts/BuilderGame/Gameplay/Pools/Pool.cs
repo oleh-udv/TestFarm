@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace BuilderGame.Pools
+namespace BuilderGame.Gameplay.Pools
 {
     public class Pool<T> where T : MonoBehaviour
     {

@@ -1,7 +1,7 @@
 using BuilderGame.Infrastructure.Services.Ads;
 using BuilderGame.Infrastructure.Services.Ads.Fake;
 using BuilderGame.Infrastructure.Services.Input;
-using BuilderGame.Pools;
+using BuilderGame.Gameplay.Pools;
 using UnityEngine;
 using Zenject;
 

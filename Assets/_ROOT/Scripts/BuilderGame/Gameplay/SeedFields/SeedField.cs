@@ -1,13 +1,9 @@
 using BuilderGame.Gameplay.InteractiveCells;
 using BuilderGame.Gameplay.SeedFields.Structs;
-using BuilderGame.Pools;
 using DG.Tweening;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Zenject;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 namespace BuilderGame.Gameplay.SeedFields
 {
