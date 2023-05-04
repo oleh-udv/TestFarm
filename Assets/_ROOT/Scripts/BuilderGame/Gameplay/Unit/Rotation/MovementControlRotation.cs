@@ -9,6 +9,7 @@ namespace BuilderGame.Gameplay.Unit.Rotation
         private UnitRotation unitRotation;
         [SerializeField]
         private UnitMovement unitMovement;
+
         private void OnValidate()
         {
             unitRotation = GetComponent<UnitRotation>();

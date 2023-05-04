@@ -1,11 +1,10 @@
 using BuilderGame.Gameplay.SeedFields;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
 namespace BuilderGame.Editors
 {
+#if UNITY_EDITOR
     [CustomEditor(typeof(SeedField))]
     public class SeedFieldEditor : Editor
     {
@@ -24,4 +23,5 @@ namespace BuilderGame.Editors
             GUI.backgroundColor = Color.gray;
         }
     }
+#endif
 }
