@@ -18,9 +18,11 @@ namespace BuilderGame.Infrastructure
             Container.Bind<FakeAdsSettings>().FromResources(nameof(FakeAdsSettings)).AsSingle();
             Container.Bind<IAdvertiser>().To<FakeAdvertiser>().AsSingle();
 
+            // Review: Changed binding logic
             //Pools
-            var plantPoolManager = Container.InstantiatePrefabResourceForComponent<PlantPoolManager>("PlantPoolManager");
-            Container.Bind<PlantPoolManager>().FromInstance(plantPoolManager).AsSingle();
+            // var plantPoolManager = Container.InstantiatePrefabResourceForComponent<PlantPoolManager>("PlantPoolManager");
+            // Container.Bind<PlantPoolManager>().FromInstance(plantPoolManager).AsSingle();
+            Container.Bind<PlantPoolManager>().FromComponentInNewPrefabResource(nameof(PlantPoolManager)).AsSingle();
         }
 
         public void Initialize()
