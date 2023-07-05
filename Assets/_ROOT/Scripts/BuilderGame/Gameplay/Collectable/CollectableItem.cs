@@ -20,20 +20,21 @@ namespace BuilderGame.Gameplay.Collectable
             Transform startParent = transform.parent;
             transform.parent = unitTransform;
             transform.localScale = Vector3.zero;
-            transform.DOScale(Vector3.one, scaleTime);
 
-            transform.DOLocalJump(Vector3.up, jumpPower, 1, moveTime)
-                .OnComplete(() => 
-                {
-                    transform.DOScale(Vector3.zero, scaleTime)
-                        .OnComplete(() => 
-                        {
-                            transform.parent = startParent;
-                            gameObject.SetActive(false);
-                        });
+            //AndriiCodeReview: Added move sequence
+            var moveSequence = DOTween.Sequence();
+            moveSequence
+                .Join(transform.DOScale(Vector3.one, scaleTime))
+                .Join(transform.DOLocalJump(Vector3.up, jumpPower, 1, moveTime))
+                .AppendCallback(() => OnComplete?.Invoke())
+                .Append(transform.DOScale(Vector3.zero, scaleTime))
+                .OnComplete(() => ResetCollectable(startParent));
+        }
 
-                    OnComplete?.Invoke();
-                });
+        private void ResetCollectable(Transform startParent)
+        {
+            transform.parent = startParent;
+            gameObject.SetActive(false);
         }
     }
 }
