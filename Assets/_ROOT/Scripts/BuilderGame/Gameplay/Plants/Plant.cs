@@ -71,9 +71,9 @@ namespace BuilderGame.Gameplay.Plants
         {
             Planting();
 
-            var collectItim = plantCollectablesPool.GetPoolElement(plantType);
-            collectItim.transform.position = transform.position;
-            collectItim.MoveToPoint(unit.transform, () => unit.CollectItem());
+            var collectItem = plantCollectablesPool.GetPoolElement(plantType);
+            collectItem.transform.position = transform.position;
+            collectItem.MoveToPoint(unit.transform, () => unit.CollectItem());
 
             collectParticle.Play();
         }
@@ -96,12 +96,11 @@ namespace BuilderGame.Gameplay.Plants
             Vector3 startScale = plant.localScale;
             plant.localScale = Vector3.zero;
 
-            plant.DOScale(startScale, scaleTime)
-                .SetEase(Ease.Linear).OnComplete(() =>
-                {
-                    plant.DOPunchScale(Vector3.one * punchForce, punchTime, 1)
-                        .OnComplete(() => OnComplete?.Invoke());
-                });
+            //AndriiCodeReview: Added appear sequence
+            var appear = DOTween.Sequence();
+            appear.Append(plant.DOScale(startScale, scaleTime).SetEase(Ease.Linear));
+            appear.Append(plant.DOPunchScale(Vector3.one * punchForce, punchTime, 1));
+            appear.OnComplete(() => OnComplete?.Invoke());
         }
 
         private void Disappear(Transform plant, float disappearingTime) 
