@@ -36,9 +36,9 @@ namespace BuilderGame.Gameplay.InteractiveCells
         {
             if (!IsInteractable)
                 return;
-
-            var unit = other.GetComponent<UnitActions>();
-            if (unit != null) 
+            
+            //AndriiCodeReview: Changed GetComponent to TryGetComponent
+            if (other.TryGetComponent<UnitActions>(out var unit)) 
             {
                 unit.InteractCell(this);
                 Interact(unit);
