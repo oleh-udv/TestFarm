@@ -4,14 +4,13 @@ using DG.Tweening;
 using System;
 using UnityEngine;
 using Zenject;
-using BuilderGame.Gameplay.Collectable;
 
 namespace BuilderGame.Gameplay.Plants
 {
     public class Plant : MonoBehaviour
     {
         [SerializeField]
-        private CollectableItemsEnum plantType;
+        private PlantType plantType;
         [Space]
         [SerializeField]
         private Transform sprout;
@@ -40,16 +39,16 @@ namespace BuilderGame.Gameplay.Plants
         [SerializeField]
         private float grownPunchForce = 0.075f;
 
-        private PlantPoolManager plantPoolManager;
+        private PlantCollectablesPool plantCollectablesPool;
         private Tween growingTween;
         private float growingTime;
 
         public event Action OnGrowUp;
 
         [Inject]
-        public void Construct(PlantPoolManager plantPoolManager)
+        public void Construct(PlantCollectablesPool plantCollectablesPool)
         {
-            this.plantPoolManager = plantPoolManager;
+            this.plantCollectablesPool = plantCollectablesPool;
         }
 
         private void OnDisable()
@@ -72,7 +71,7 @@ namespace BuilderGame.Gameplay.Plants
         {
             Planting();
 
-            var collectItim = plantPoolManager.GetPoolElement(plantType);
+            var collectItim = plantCollectablesPool.GetPoolElement(plantType);
             collectItim.transform.position = transform.position;
             collectItim.MoveToPoint(unit.transform, () => unit.CollectItem());
 

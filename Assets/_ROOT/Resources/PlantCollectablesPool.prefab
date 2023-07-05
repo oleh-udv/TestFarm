@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5756988807631102185}
   - component: {fileID: 6448938459587569093}
   m_Layer: 0
-  m_Name: PlantPoolManager
+  m_Name: PlantCollectablesPool
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

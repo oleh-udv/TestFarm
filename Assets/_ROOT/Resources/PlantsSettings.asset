@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b92445468e442a5ad480b3d9217d604, type: 3}
+  m_Name: PlantsSettings
+  m_EditorClassIdentifier: 
+  <PlantData>k__BackingField:
+  - Type: 0
+    PlantPrefab: {fileID: 8677277654269366817, guid: f12d880fce7376d40a6f3514935e30af, type: 3}
+    PlantCollectable: {fileID: 5253412336959649270, guid: 78fc0784d98307a49ba91be3f093a56b, type: 3}
+    PoolInitialCount: 10
+  - Type: 1
+    PlantPrefab: {fileID: 3014330331301570806, guid: 40c80a75ba8265d419fece409861ec54, type: 3}
+    PlantCollectable: {fileID: 8594714044119345644, guid: 6f6a11569c0a5714fbce543b08018472, type: 3}
+    PoolInitialCount: 10

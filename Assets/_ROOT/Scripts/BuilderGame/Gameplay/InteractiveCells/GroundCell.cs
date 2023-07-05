@@ -3,6 +3,7 @@ using BuilderGame.Gameplay.Unit;
 using Structs;
 using UnityEngine;
 using Zenject;
+using BuilderGame.Gameplay.InteractiveCells.Enums;
 
 namespace BuilderGame.Gameplay.InteractiveCells
 {
@@ -12,17 +13,17 @@ namespace BuilderGame.Gameplay.InteractiveCells
         [SerializeField] 
         private FloatRangeStruct growthTime;
 
+        [Header("Plant")]
         [SerializeField]
-        private Plant plantPrefab;
+        private PlantType plantType;
 
-        private DiContainer diContainer;
         private Plant currentPlant;
-        private bool isSown;
+        private PlantsFactory plantsFactory;
 
         [Inject]
-        public void Construct(DiContainer diContainer)
+        public void Construct(PlantsFactory plantsFactory)
         {
-            this.diContainer = diContainer;
+            this.plantsFactory = plantsFactory;
         }
 
         private void OnDisable()
@@ -35,22 +36,23 @@ namespace BuilderGame.Gameplay.InteractiveCells
             base.Interact(unit);
             IsInteractable = false;
 
-            if (isSown == false)
+            //AndriiCodeReview: Removed unnecessary "isSown" flag
+            if (cellType != CellType.SownGroundCell)
                 Sown();
             else
                 Collect(unit);
         }
 
-        private void Sown() 
+        private void Sown()
         {
-            currentPlant = diContainer.InstantiatePrefab(plantPrefab, transform).GetComponent<Plant>();
+
+            currentPlant = plantsFactory.Create(plantType, transform);
             ExpectActivity();
             currentPlant.Planting();
 
             currentPlant.OnGrowUp += ActivateCell;
 
-            cellType = Enums.CellType.SownGroundCell;
-            isSown = true;
+            cellType = CellType.SownGroundCell;
         }
 
         private void Collect(UnitActions unit) 
