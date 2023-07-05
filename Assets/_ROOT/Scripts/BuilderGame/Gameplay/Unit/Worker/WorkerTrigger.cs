@@ -2,6 +2,7 @@ using BuilderGame.Infrastructure.Services.Ads;
 using DG.Tweening;
 using UnityEngine;
 using Zenject;
+using System.Threading.Tasks;
 
 namespace BuilderGame.Gameplay.Unit.Worker
 {
@@ -18,7 +19,8 @@ namespace BuilderGame.Gameplay.Unit.Worker
 
         private IAdvertiser advertiser;
 
-        private bool isActive = true;
+        private bool workerActivated;
+        private Task<AdWatchResult> ad;
 
         [Inject]
         public void Construct(IAdvertiser advertiser)
@@ -28,36 +30,38 @@ namespace BuilderGame.Gameplay.Unit.Worker
 
         private void OnTriggerEnter(Collider other)
         {
-            if (isActive == false)
-                return;
+            if(workerActivated) return;
 
-            if (other.tag == Constants.PlayerTag) 
+            if (other.CompareTag(Constants.PlayerTag))
             {
-                isActive = false;
-                ShowReward();
+                TryActivateWorker();
             }
         }
 
-        private async void ShowReward() 
+        //AndriiCodeReview: Changed ad showing logic
+        private async void TryActivateWorker()
         {
-            var adv = advertiser.ShowRewardedAd("Full Screen");
-            var result = await adv;
+            if(ad is { Status: TaskStatus.Running }) return;
+            
+            ad = advertiser.ShowRewardedAd("Full Screen");
+            var result = await ad;
 
             if (result == AdWatchResult.Watched)
+            {
                 ActivateWorker();
-            else
-                isActive = true;
+            }
         }
 
-        private void ActivateWorker() 
+        private void ActivateWorker()
+        {
+            HideTriggerField();
+            worker.Activate();
+        }
+
+        private void HideTriggerField()
         {
             triggerField.DOScale(Vector3.zero, scaleTime)
-                .SetEase(Ease.Linear).OnComplete(() =>
-                {
-                    triggerField.gameObject.SetActive(false);
-                });
-
-            worker.Activate();
+                .SetEase(Ease.Linear).OnComplete(() => { triggerField.gameObject.SetActive(false); });
         }
     }
 }
